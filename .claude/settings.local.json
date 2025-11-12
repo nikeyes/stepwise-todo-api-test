@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(make help)",
+      "Bash(uv run python --version)",
+      "Bash(curl -s http://localhost:8000/)",
+      "Bash(curl -s http://localhost:8000/todos/999)",
+      "Bash(curl -s -X PATCH http://localhost:8000/todos/1 -H \"Content-Type: application/json\" -d '{\"\"completed\"\": true}')",
+      "Bash(curl -s -X DELETE http://localhost:8000/todos/1)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
