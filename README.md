@@ -1,6 +1,19 @@
 # TODO API - Stepwise Plugin Validation Project
 
-Simple REST API built with FastAPI to validate the stepwise plugin workflow (Research → Plan → Implement → Validate).
+> 🔬 **Validation project** for [stepwise-dev](https://github.com/nikeyes/stepwise-dev) - Claude Code plugin that implements the Research → Plan → Implement → Validate workflow
+
+Simple REST API built with FastAPI to validate the stepwise plugin workflow.
+
+## About This Project
+
+This project is a testing laboratory to validate the **[stepwise-dev](https://github.com/nikeyes/stepwise-dev)** plugin, which structures development in four phases to maintain coherence in complex implementations.
+
+**Why does this project exist?**
+- Test the complete stepwise-dev cycle with a real API
+- Validate that the workflow works with features of different complexities
+- Document best practices for using the plugin
+
+📋 **[See complete features roadmap →](STEPWISE_FEATURES.md)**
 
 ## Features
 
@@ -95,49 +108,59 @@ Open http://localhost:8000/docs in your browser for interactive Swagger UI docum
 
 ```
 .
-├── Makefile           # Development commands
-├── pyproject.toml     # Project configuration and dependencies
+├── README.md                    # This file - Quick guide
+├── STEPWISE_FEATURES.md         # Detailed feature analysis for stepwise-dev
+├── Makefile                     # Development commands
+├── pyproject.toml               # Configuration and dependencies
 ├── src/
 │   └── todo_api/
 │       ├── __init__.py
-│       ├── main.py      # FastAPI app and endpoints
-│       ├── models.py    # Pydantic models
-│       └── storage.py   # In-memory storage
+│       ├── main.py              # FastAPI app and endpoints
+│       ├── models.py            # Pydantic models
+│       └── storage.py           # In-memory storage
 └── tests/
     ├── __init__.py
-    └── test_api.py      # Test suite
+    └── test_api.py              # Test suite
 ```
 
-## Validation Workflow
+## Stepwise-Dev Workflow
 
-This project is designed to validate the stepwise plugin cycle:
+This project is designed to validate the 4-phase stepwise-dev cycle:
 
-1. **Research**: Explore the incomplete endpoints and understand what's missing
-2. **Plan**: Create implementation plans for missing features
-3. **Implement**: Complete the stub endpoints
-4. **Validate**: Run tests to verify implementations
+| Phase | Description | Example in this project |
+|-------|-------------|-------------------------|
+| **🔍 Research** | Explore codebase and understand context | Investigate incomplete endpoints, analyze current storage |
+| **📋 Plan** | Create detailed implementation plan | Design JWT authentication, plan DB migration |
+| **⚙️ Implement** | Execute phase by phase with validations | Implement endpoints, add middleware |
+| **✅ Validate** | Systematically verify complete implementation | Run tests, verify integration |
 
-### Suggested Validation Tasks
+**Key benefit**: Context is cleared between phases and persisted in `thoughts/`, preventing the LLM from losing attention on complex projects.
 
-1. Implement `PATCH /todos/{id}` endpoint
-   - Should update title, description, or completed status
-   - Should return 404 if todo doesn't exist
-   - Should validate input data
+### Features to Validate
 
-2. Implement `DELETE /todos/{id}` endpoint
-   - Should remove todo from storage
-   - Should return 404 if todo doesn't exist
-   - Should return 204 No Content on success
+#### 🎯 Simple (implement directly)
+- `PATCH /todos/{id}` - Update todo
+- `DELETE /todos/{id}` - Delete todo
+- `GET /todos/search` - Basic search
 
-3. Implement `GET /todos/search` endpoint
-   - Should filter todos by query string
-   - Should search in title and description
-   - Should be case-insensitive
+#### 🚀 Complex (ideal for stepwise-dev)
+- 🔐 **Authentication/Authorization** - JWT, OAuth2, permissions
+- 💾 **Data Persistence** - SQLAlchemy, migrations, transactions
+- ⏱️ **Rate Limiting** - Middleware, strategies, headers
+- 🔍 **Advanced Search + Tags** - Full-text search, filters, categories
 
-4. Add rate limiting middleware
-   - Limit requests per IP address
-   - Return 429 Too Many Requests when exceeded
-   - Add appropriate headers (X-RateLimit-*)
+📖 **[See detailed analysis of each feature →](STEPWISE_FEATURES.md)**
+
+## Development Roadmap
+
+Features prioritized for implementation with stepwise-dev:
+
+1. **🔐 Authentication** (Priority: High) - Foundation for ownership and permissions
+2. **💾 Persistence** (Priority: High) - Fundamental architectural change
+3. **⏱️ Rate Limiting** (Priority: Medium) - Production middleware
+4. **🔍 Search + Tags** (Priority: Medium) - UX improvements
+
+**See details**: [STEPWISE_FEATURES.md](STEPWISE_FEATURES.md) includes complexity analysis, architectural decisions, and specific steps for each feature.
 
 ## Testing
 
