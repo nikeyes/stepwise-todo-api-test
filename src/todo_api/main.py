@@ -34,7 +34,7 @@ def get_todos(completed: Optional[bool] = None):
     todos = storage.get_all()
     if completed is None:
         return todos
-    return [todo for todo in todos if todo.completed != completed]
+    return [todo for todo in todos if todo.completed == completed]
 
 
 @app.get("/todos/search")
