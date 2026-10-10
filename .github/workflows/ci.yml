@@ -27,3 +27,9 @@ jobs:
     - uses: astral-sh/setup-uv@v5
     - run: make install
     - run: make test
+
+  slow:
+    name: Slow
+    runs-on: ubuntu-latest
+    steps:
+    - run: sleep 660
