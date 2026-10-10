@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from fastapi import FastAPI, HTTPException, status
 
@@ -29,9 +29,12 @@ def root():
 
 
 @app.get("/todos", response_model=List[TodoResponse])
-def get_todos():
-    """Get all todos"""
-    return storage.get_all()
+def get_todos(completed: Optional[bool] = None):
+    """Get all todos, optionally filtered by completion state"""
+    todos = storage.get_all()
+    if completed is None:
+        return todos
+    return [todo for todo in todos if todo.completed != completed]
 
 
 @app.get("/todos/search")

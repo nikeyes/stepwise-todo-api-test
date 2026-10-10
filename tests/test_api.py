@@ -117,3 +117,13 @@ def test_search_todos_not_implemented(client):
     response = client.get("/todos/search?q=test")
     assert response.status_code == 501
     assert "not implemented" in response.json()["detail"].lower()
+
+
+def test_get_todos_filtered_by_completed(client):
+    client.post("/todos", json={"title": "Done", "completed": True})
+    client.post("/todos", json={"title": "Pending", "completed": False})
+
+    response = client.get("/todos", params={"completed": "true"})
+
+    assert response.status_code == 200
+    assert [todo["title"] for todo in response.json()] == ["Done"]
