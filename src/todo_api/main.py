@@ -1,3 +1,4 @@
+import os
 from typing import List
 
 from fastapi import FastAPI, HTTPException, status
@@ -26,6 +27,12 @@ def root():
             ],
         },
     }
+
+
+@app.get("/health")
+def health():
+    """Liveness probe"""
+    return {"status": "ok"}
 
 
 @app.get("/todos", response_model=List[TodoResponse])

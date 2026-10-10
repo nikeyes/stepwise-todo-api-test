@@ -117,3 +117,9 @@ def test_search_todos_not_implemented(client):
     response = client.get("/todos/search?q=test")
     assert response.status_code == 501
     assert "not implemented" in response.json()["detail"].lower()
+
+
+def test_health(client):
+    response = client.get("/health")
+    assert response.status_code == 200
+    assert response.json() == {"status": "ok"}
